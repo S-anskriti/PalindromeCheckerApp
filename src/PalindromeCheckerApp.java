@@ -1,31 +1,43 @@
-public class PalindromeCheckerApp {
+class PalindromeService {
 
-    public static void main(String[] args) {
+    public boolean isPalindrome(String input) {
 
-        String input = "A man a plan a canal Panama";
+        if (input == null) {
+            return false;
+        }
 
         String normalized = input.toLowerCase().replaceAll("\\s+", "");
 
         int start = 0;
         int end = normalized.length() - 1;
 
-        boolean isPalindrome = true;
-
         while (start < end) {
 
             if (normalized.charAt(start) != normalized.charAt(end)) {
-                isPalindrome = false;
-                break;
+                return false;
             }
 
             start++;
             end--;
         }
 
-        if (isPalindrome) {
-            System.out.println("\"" + input + "\" is a palindrome (ignoring case and spaces)");
+        return true;
+    }
+}
+
+public class PalindromeCheckerApp {
+
+    public static void main(String[] args) {
+
+        String text = "Never Odd Or Even";
+
+        PalindromeService service = new PalindromeService();
+        boolean result = service.isPalindrome(text);
+
+        if (result) {
+            System.out.println("\"" + text + "\" is a palindrome");
         } else {
-            System.out.println("\"" + input + "\" is not a palindrome");
+            System.out.println("\"" + text + "\" is not a palindrome");
         }
     }
 }
