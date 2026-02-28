@@ -1,12 +1,6 @@
-interface PalindromeStrategy {
-    boolean isPalindrome(String input);
-}
-class TwoPointerStrategy implements PalindromeStrategy {
+public class PalindromeCheckerApp {
 
-    @Override
-    public boolean isPalindrome(String input) {
-
-        if (input == null) return false;
+    public static boolean twoPointerCheck(String input) {
 
         String normalized = input.toLowerCase().replaceAll("\\s+", "");
 
@@ -23,13 +17,8 @@ class TwoPointerStrategy implements PalindromeStrategy {
 
         return true;
     }
-}
-class ReverseStringStrategy implements PalindromeStrategy {
 
-    @Override
-    public boolean isPalindrome(String input) {
-
-        if (input == null) return false;
+    public static boolean reverseStringCheck(String input) {
 
         String normalized = input.toLowerCase().replaceAll("\\s+", "");
 
@@ -37,40 +26,28 @@ class ReverseStringStrategy implements PalindromeStrategy {
 
         return normalized.equals(reversed);
     }
-}
-class PalindromeContext {
-
-    private PalindromeStrategy strategy;
-
-    public PalindromeContext(PalindromeStrategy strategy) {
-        this.strategy = strategy;
-    }
-
-    public void setStrategy(PalindromeStrategy strategy) {
-        this.strategy = strategy;
-    }
-
-    public boolean execute(String input) {
-        return strategy.isPalindrome(input);
-    }
-}
-
-public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
-        String text = "Was It A Rat I Saw";
-        PalindromeContext context =
-                new PalindromeContext(new TwoPointerStrategy());
+        String text = "Able was I ere I saw Elba";
 
-        boolean result1 = context.execute(text);
+        long startTime1 = System.nanoTime();
+        boolean result1 = twoPointerCheck(text);
+        long endTime1 = System.nanoTime();
 
-        System.out.println("Two-Pointer Strategy Result: " + result1);
+        long duration1 = endTime1 - startTime1;
 
-        context.setStrategy(new ReverseStringStrategy());
+        // Measure Reverse String Execution Time
+        long startTime2 = System.nanoTime();
+        boolean result2 = reverseStringCheck(text);
+        long endTime2 = System.nanoTime();
 
-        boolean result2 = context.execute(text);
+        long duration2 = endTime2 - startTime2;
 
-        System.out.println("Reverse String Strategy Result: " + result2);
+        System.out.println("Two-Pointer Result: " + result1);
+        System.out.println("Two-Pointer Execution Time (ns): " + duration1);
+
+        System.out.println("Reverse String Result: " + result2);
+        System.out.println("Reverse String Execution Time (ns): " + duration2);
     }
 }
